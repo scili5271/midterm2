@@ -1,6 +1,6 @@
 #include "mbed.h"
 #include "mbed_rpc.h"
-#include "mbed.h"
+#include "uLCD_4DGL.h"
 #include "MQTTNetwork.h"
 #include "MQTTmbed.h"
 #include "MQTTClient.h"
@@ -26,6 +26,8 @@ DigitalOut myled1(LED1);
 DigitalOut myled2(LED2);
 DigitalOut myled3(LED3);
 BufferedSerial pc(USBTX, USBRX);
+
+uLCD_4DGL uLCD(D1, D0, D2);
 
 constexpr int kTensorArenaSize = 60 * 1024;
 uint8_t tensor_arena[kTensorArenaSize];
@@ -82,7 +84,7 @@ void detection (Arguments *in, Reply *out)   {
     char buffer[200], outbuf[256];
     char strings[20];
     int angle = x;
-    printf("angel = %d", angle);
+    uLCD.printf("\n angle = %d \n", angle);
 }
 
 
