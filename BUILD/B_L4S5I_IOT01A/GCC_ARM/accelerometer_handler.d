@@ -1,5 +1,11 @@
-BUILD/B_L4S5I_IOT01A/GCC_ARM/main.o: main.cpp \
- BUILD/B_L4S5I_IOT01A/GCC_ARM/mbed_config.h \
+BUILD/B_L4S5I_IOT01A/GCC_ARM/accelerometer_handler.o: \
+ accelerometer_handler.cpp BUILD/B_L4S5I_IOT01A/GCC_ARM/mbed_config.h \
+ accelerometer_handler.h tensorflowlite_mbed/tensorflow/lite/c/common.h \
+ tensorflowlite_mbed/tensorflow/lite/micro/micro_error_reporter.h \
+ tensorflowlite_mbed/tensorflow/lite/core/api/error_reporter.h \
+ tensorflowlite_mbed/tensorflow/lite/micro/compatibility.h \
+ tensorflowlite_mbed/tensorflow/lite/micro/debug_log.h \
+ tensorflowlite_mbed/tensorflow/lite/micro/debug_log_numbers.h \
  /home/ee2405/ee2405/mbed-os/mbed.h \
  /home/ee2405/ee2405/mbed-os/platform/include/platform/mbed_version.h \
  /home/ee2405/ee2405/mbed-os/rtos/include/rtos/rtos.h \
@@ -322,46 +328,8 @@ BUILD/B_L4S5I_IOT01A/GCC_ARM/main.o: main.cpp \
  /home/ee2405/ee2405/mbed-os/hal/include/hal/mpu_api.h \
  /home/ee2405/ee2405/mbed-os/platform/include/platform/ScopedRamExecutionLock.h \
  /home/ee2405/ee2405/mbed-os/platform/include/platform/mbed_stats.h \
- mbed_rpc/mbed_rpc/mbed_rpc.h mbed_rpc/mbed_rpc/rpc.h \
- mbed_rpc/mbed_rpc/Arguments.h \
- /home/ee2405/ee2405/mbed-os/connectivity/mbedtls/include/mbedtls/platform.h \
- mbed_rpc/mbed_rpc/RPCVariable.h mbed_rpc/mbed_rpc/RPCFunction.h \
- mbed_rpc/mbed_rpc/RpcClasses.h 4dgl-ulcd-se/uLCD_4DGL.h \
- /home/ee2405/ee2405/mbed-os/platform/include/platform/Stream.h \
- /home/ee2405/ee2405/mbed-os/platform/include/platform/FileLike.h \
- wifi_mqtt/MQTTNetwork.h \
- /home/ee2405/ee2405/mbed-os/connectivity/netsocket/include/netsocket/NetworkInterface.h \
- wifi_mqtt/MQTT/MQTTmbed.h wifi_mqtt/MQTT/MQTTClient.h \
- wifi_mqtt/MQTT/FP/FP.h wifi_mqtt/MQTT/MQTTPacket/MQTTPacket.h \
- wifi_mqtt/MQTT/MQTTPacket/MQTTConnect.h \
- wifi_mqtt/MQTT/MQTTPacket/MQTTPublish.h \
- wifi_mqtt/MQTT/MQTTPacket/MQTTSubscribe.h \
- wifi_mqtt/MQTT/MQTTPacket/MQTTUnsubscribe.h \
- wifi_mqtt/MQTT/MQTTPacket/MQTTFormat.h \
- wifi_mqtt/MQTT/MQTTPacket/StackTrace.h \
- wifi_mqtt/MQTT/MQTTPacket/MQTTPacket.h wifi_mqtt/MQTT/MQTTLogging.h \
- accelerometer_handler.h tensorflowlite_mbed/tensorflow/lite/c/common.h \
- tensorflowlite_mbed/tensorflow/lite/micro/micro_error_reporter.h \
- tensorflowlite_mbed/tensorflow/lite/core/api/error_reporter.h \
- tensorflowlite_mbed/tensorflow/lite/micro/compatibility.h \
- tensorflowlite_mbed/tensorflow/lite/micro/debug_log.h \
- tensorflowlite_mbed/tensorflow/lite/micro/debug_log_numbers.h config.h \
- magic_wand_model_data.h \
- tensorflowlite_mbed/tensorflow/lite/micro/kernels/micro_ops.h \
- tensorflowlite_mbed/tensorflow/lite/micro/micro_interpreter.h \
- tensorflowlite_mbed/tensorflow/lite/core/api/op_resolver.h \
- tensorflowlite_mbed/tensorflow/lite/schema/schema_generated.h \
- tensorflowlite_mbed/third_party/flatbuffers/include/flatbuffers/flatbuffers.h \
- tensorflowlite_mbed/third_party/flatbuffers/include/flatbuffers/base.h \
- tensorflowlite_mbed/third_party/flatbuffers/include/flatbuffers/stl_emulation.h \
- tensorflowlite_mbed/tensorflow/lite/kernels/internal/tensor_ctypes.h \
- tensorflowlite_mbed/tensorflow/lite/kernels/internal/types.h \
- tensorflowlite_mbed/tensorflow/lite/kernels/internal/compatibility.h \
- tensorflowlite_mbed/tensorflow/lite/kernels/op_macros.h \
- tensorflowlite_mbed/tensorflow/lite/micro/micro_allocator.h \
- tensorflowlite_mbed/tensorflow/lite/core/api/flatbuffer_conversions.h \
- tensorflowlite_mbed/tensorflow/lite/micro/simple_memory_allocator.h \
- tensorflowlite_mbed/tensorflow/lite/type_to_tflitetype.h \
- tensorflowlite_mbed/tensorflow/lite/micro/micro_mutable_op_resolver.h \
- tensorflowlite_mbed/tensorflow/lite/version.h \
- tensorflowlite_mbed/tensorflow/core/public/version.h
+ BSP_B-L475E-IOT01/Drivers/BSP/B-L475E-IOT01/stm32l475e_iot01_accelero.h \
+ BSP_B-L475E-IOT01/Drivers/BSP/B-L475E-IOT01/stm32l475e_iot01.h \
+ BSP_B-L475E-IOT01/Drivers/BSP/B-L475E-IOT01/../Components/lsm6dsl/lsm6dsl.h \
+ BSP_B-L475E-IOT01/Drivers/BSP/B-L475E-IOT01/../Components/lsm6dsl/../Common/accelero.h \
+ BSP_B-L475E-IOT01/Drivers/BSP/B-L475E-IOT01/../Components/lsm6dsl/../Common/gyro.h
