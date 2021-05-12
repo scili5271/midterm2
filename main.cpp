@@ -16,10 +16,6 @@
 #include "tensorflow/lite/schema/schema_generated.h"
 #include "tensorflow/lite/version.h"
 
-/**
-*  This example program has been updated to use the RPC implementation in the new mbed libraries.
-*  This example demonstrates using RPC over serial
-*/
 
 void gesture(Arguments *in, Reply *out);
 RPCFunction rpcges(&gesture, "ges");
@@ -33,6 +29,48 @@ BufferedSerial pc(USBTX, USBRX);
 
 constexpr int kTensorArenaSize = 60 * 1024;
 uint8_t tensor_arena[kTensorArenaSize];
+WiFiInterface *wifi;
+InterruptIn btn2(USER_BUTTON);
+volatile int message_num = 0;
+volatile int arrivedcount = 0;
+volatile bool closed = false;
+
+const char* topic = "Mbed";
+
+Thread mqtt_thread(osPriorityHigh);
+EventQueue mqtt_queue;
+
+void messageArrived(MQTT::MessageData& md) {
+    MQTT::Message &message = md.message;
+    char msg[300];
+    sprintf(msg, "Message arrived: QoS%d, retained %d, dup %d, packetID %d\r\n", message.qos, message.retained, message.dup, message.id);
+    printf(msg);
+    ThisThread::sleep_for(1000ms);
+    char payload[300];
+    sprintf(payload, "Payload %.*s\r\n", message.payloadlen, (char*)message.payload);
+    printf(payload);
+    ++arrivedcount;
+}
+
+void publish_message(MQTT::Client<MQTTNetwork, Countdown>* client) {
+    message_num++;
+    MQTT::Message message;
+    char buff[100];
+    sprintf(buff, "QoS0 Hello, Python! #%d", message_num);
+    message.qos = MQTT::QOS0;
+    message.retained = false;
+    message.dup = false;
+    message.payload = (void*) buff;
+    message.payloadlen = strlen(buff) + 1;
+    int rc = client->publish(topic, message);
+
+    printf("rc:  %d\r\n", rc);
+    printf("Puslish message: %s\r\n", buff);
+}
+
+void close_mqtt() {
+    closed = true;
+}
 
 
 void detection (Arguments *in, Reply *out)   {
@@ -166,9 +204,6 @@ void gesture(int argc, char* argv[]) {
   printf("angel = %d", gesture_index);
 }
 int main() {
-    //The mbed RPC classes are now wrapped to create an RPC enabled version - see RpcClasses.h so don't add to base class
-
-    // receive commands, and send back the responses
     char buf[256], outbuf[256];
 
     FILE *devin = fdopen(&pc, "r");
@@ -188,52 +223,6 @@ int main() {
         RPC::call(buf, outbuf);
         printf("%s\r\n", outbuf);
     }
-    // GLOBAL VARIABLES
-WiFiInterface *wifi;
-InterruptIn btn2(USER_BUTTON);
-//InterruptIn btn3(SW3);
-volatile int message_num = 0;
-volatile int arrivedcount = 0;
-volatile bool closed = false;
-
-const char* topic = "Mbed";
-
-Thread mqtt_thread(osPriorityHigh);
-EventQueue mqtt_queue;
-
-void messageArrived(MQTT::MessageData& md) {
-    MQTT::Message &message = md.message;
-    char msg[300];
-    sprintf(msg, "Message arrived: QoS%d, retained %d, dup %d, packetID %d\r\n", message.qos, message.retained, message.dup, message.id);
-    printf(msg);
-    ThisThread::sleep_for(1000ms);
-    char payload[300];
-    sprintf(payload, "Payload %.*s\r\n", message.payloadlen, (char*)message.payload);
-    printf(payload);
-    ++arrivedcount;
-}
-
-void publish_message(MQTT::Client<MQTTNetwork, Countdown>* client) {
-    message_num++;
-    MQTT::Message message;
-    char buff[100];
-    sprintf(buff, "QoS0 Hello, Python! #%d", message_num);
-    message.qos = MQTT::QOS0;
-    message.retained = false;
-    message.dup = false;
-    message.payload = (void*) buff;
-    message.payloadlen = strlen(buff) + 1;
-    int rc = client->publish(topic, message);
-
-    printf("rc:  %d\r\n", rc);
-    printf("Puslish message: %s\r\n", buff);
-}
-
-void close_mqtt() {
-    closed = true;
-}
-
-
 
     wifi = WiFiInterface::get_default_instance();
     if (!wifi) {
